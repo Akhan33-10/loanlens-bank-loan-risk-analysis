@@ -15,7 +15,7 @@ The analysis covers loan performance, risk segmentation by grade and credit scor
 ---
 ![Loan Overview](Overview.png)
 ![Risk Analysis](Risk_analysis.png)
-![Applicant Profile](Applicant_profile.png)
+![Applicant Profile](Applicant_%20profile.png)
 
 
 ## 🛠️ Tools & Tech Stack
