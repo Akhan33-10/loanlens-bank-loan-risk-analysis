@@ -13,10 +13,6 @@ Banks lose significant revenue when loans default or are charged off. This proje
 The analysis covers loan performance, risk segmentation by grade and credit score, applicant profiling (DTI, employment length), and home ownership patterns — culminating in a 3-page interactive Power BI dashboard.
 
 ---
-![Loan Overview](Overview.png)
-![Risk Analysis](Risk_analysis.png)
-![Applicant Profile](Applicant_%20profile.png)
-
 
 ## 🛠️ Tools & Tech Stack
 
@@ -68,21 +64,115 @@ A realistic synthetic dataset of **50,000 loan records** with 20 attributes, inc
 - Ranking loan grades by default rate using `RANK()`
 - Year-over-year default rate trend
 
+📁 Full query file: [`sql/analysis.sql`](sql/analysis.sql)
+
+---
+
+## 🧠 Advanced Query Highlights
+
+A few standout queries that go beyond basic aggregation:
+
+**1. Risk-Adjusted Net Revenue by Grade**
+Estimates interest earned vs. principal lost per grade to surface which segments are actually profitable.
+```sql
+WITH grade_summary AS (
+    SELECT 
+        grade,
+        SUM(CASE WHEN loan_status = 'Fully Paid' THEN loan_amount * interest_rate/100 ELSE 0 END) AS interest_earned,
+        SUM(CASE WHEN loan_status IN ('Default','Charged Off') THEN loan_amount ELSE 0 END) AS principal_lost
+    FROM loan_data
+    GROUP BY grade
+)
+SELECT 
+    grade,
+    ROUND(interest_earned,2) AS interest_earned,
+    ROUND(principal_lost,2) AS principal_lost,
+    ROUND(interest_earned - principal_lost,2) AS net_revenue
+FROM grade_summary
+ORDER BY net_revenue ASC;
+```
+
+**2. Income Quartile Default Analysis (NTILE)**
+Splits applicants into 4 income quartiles to test whether income level predicts default risk.
+```sql
+WITH income_quartile AS (
+    SELECT 
+        loan_id, loan_status, annual_income,
+        NTILE(4) OVER (ORDER BY annual_income) AS income_quartile
+    FROM loan_data
+)
+SELECT 
+    income_quartile,
+    COUNT(*) AS total_loans,
+    ROUND(SUM(CASE WHEN loan_status IN ('Default','Charged Off') THEN 1 ELSE 0 END)*100.0/COUNT(*),2) AS default_pct
+FROM income_quartile
+GROUP BY income_quartile
+ORDER BY income_quartile;
+```
+
+**3. Grade Default Rate vs. Portfolio Benchmark**
+Compares each grade's default rate against the overall portfolio average using a `CROSS JOIN`.
+```sql
+WITH grade_default AS (
+    SELECT grade,
+           ROUND(SUM(CASE WHEN loan_status IN ('Default','Charged Off') THEN 1 ELSE 0 END)*100.0/COUNT(*),2) AS default_pct
+    FROM loan_data
+    GROUP BY grade
+),
+overall_avg AS (
+    SELECT ROUND(SUM(CASE WHEN loan_status IN ('Default','Charged Off') THEN 1 ELSE 0 END)*100.0/COUNT(*),2) AS avg_default
+    FROM loan_data
+)
+SELECT 
+    g.grade, g.default_pct, o.avg_default,
+    ROUND(g.default_pct - o.avg_default,2) AS gap_vs_avg
+FROM grade_default g
+CROSS JOIN overall_avg o
+ORDER BY gap_vs_avg DESC;
+```
+
+**4. Cumulative Default Rate Over Time**
+Tracks running default rate month over month to detect whether portfolio risk is worsening.
+```sql
+WITH monthly AS (
+    SELECT 
+        TO_CHAR(issue_date,'YYYY-MM') AS month,
+        COUNT(*) AS total_loans,
+        SUM(CASE WHEN loan_status IN ('Default','Charged Off') THEN 1 ELSE 0 END) AS bad_loans
+    FROM loan_data
+    GROUP BY TO_CHAR(issue_date,'YYYY-MM')
+)
+SELECT 
+    month, total_loans, bad_loans,
+    ROUND(
+        SUM(bad_loans) OVER (ORDER BY month) * 100.0 / 
+        SUM(total_loans) OVER (ORDER BY month), 
+    2) AS cumulative_default_pct
+FROM monthly
+ORDER BY month;
+```
+
 ---
 
 ## 📊 Dashboard Overview
 
 ### Page 1 — Loan Overview
+![Loan Overview](Overview.png)
+
 KPI summary (Total Loans, Total Amount, Avg Interest Rate, Default Rate), loan status breakdown, and yearly loan issuance trend.
 
 **Key Insight:** 2020 recorded the highest loan issuance (10,101 loans, $172.86M). Issuance declined through 2023 alongside a 0.15% rise in average interest rate — suggesting rate sensitivity among borrowers.
 
 ### Page 2 — Risk Analysis
+![Risk Analysis](Risk_analysis.png)
+
 Default rate by loan grade, home ownership, credit-score-based risk tier, and loan purpose.
 
 **Key Insight:** Grade G loans default at 57.43% — nearly 8x higher than Grade A (6.72%), confirming loan grade as the strongest default predictor. High Risk applicants (credit score <650) default at 45.31%, 4.4x higher than Low Risk applicants (10.35%).
 
 ### Page 3 — Applicant Profile
+![Applicant Profile](Applicant_profile.png)
+
 Default rate by employment length and average DTI by loan status.
 
 **Key Insight:** Employment length shows minimal predictive power (21.45%–23.49% range). DTI, however, is a strong signal — defaulted/charged-off loans carry ~19.9% average DTI vs. 16.54% for fully paid loans, a 3.3-point gap.
@@ -162,6 +252,8 @@ bank-loan-risk-analysis/
 
 **Anas**
 Data Analyst | SQL • Power BI • Python
+🔗 [GitHub](https://github.com/Akhan33-10) | [LinkedIn](#)
+
 ---
 
 ⭐ If you found this project useful, consider giving it a star on GitHub!
