@@ -64,8 +64,6 @@ A realistic synthetic dataset of **50,000 loan records** with 20 attributes, inc
 - Ranking loan grades by default rate using `RANK()`
 - Year-over-year default rate trend
 
-📁 Full query file: [`sql/analysis.sql`](sql/analysis.sql)
-
 ---
 
 ## 🧠 Advanced Query Highlights
