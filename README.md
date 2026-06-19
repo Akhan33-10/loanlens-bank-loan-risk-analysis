@@ -13,11 +13,9 @@ Banks lose significant revenue when loans default or are charged off. This proje
 The analysis covers loan performance, risk segmentation by grade and credit score, applicant profiling (DTI, employment length), and home ownership patterns — culminating in a 3-page interactive Power BI dashboard.
 
 ---
-![Loan Overview](screenshots/Overview.png)
-
-![Risk Analysis](screenshots/Risk_analysis.png)
-
-![Applicant Profile](screenshots/Applicant_profile.png)
+![Loan Overview](Overview.png)
+![Risk Analysis](Risk_analysis.png)
+![Applicant Profile](Applicant_profile.png)
 
 
 ## 🛠️ Tools & Tech Stack
