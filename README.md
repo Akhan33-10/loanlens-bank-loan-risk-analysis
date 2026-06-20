@@ -169,7 +169,7 @@ Default rate by loan grade, home ownership, credit-score-based risk tier, and lo
 **Key Insight:** Grade G loans default at 57.43% — nearly 8x higher than Grade A (6.72%), confirming loan grade as the strongest default predictor. High Risk applicants (credit score <650) default at 45.31%, 4.4x higher than Low Risk applicants (10.35%).
 
 ### Page 3 — Applicant Profile
-![Applicant Profile](Applicant_%20profile.png)
+![Applicant Profile](Applicant_20%profile.png)
 
 Default rate by employment length and average DTI by loan status.
 
@@ -177,42 +177,39 @@ Default rate by employment length and average DTI by loan status.
 
 ---
 
-## 💡 Key Findings
+## 💡 Findings & Recommendations
 
-1. **Loan grade and credit score are the strongest predictors of default** — far more reliable than demographic or employment factors.
-2. **DTI is a meaningful early-warning signal** — borrowers with higher existing debt burdens are more likely to default.
-3. **Employment tenure has almost no correlation with default risk**, challenging a common underwriting assumption.
-4. **Home ownership has limited risk differentiation** (~22% across Mortgage, Rent, Own) — not a strong standalone risk factor.
-5. **Nearly 1 in 4 loans (22.42%) result in losses** for the bank, representing significant portfolio risk concentrated in low-grade, high-DTI borrowers.
+Each finding below is paired directly with the action it justifies and the impact it's expected to have — so the "why" and the "what to do" are never more than one sentence apart.
 
----
+### 1. Loan grade is the strongest predictor of default — price and underwrite by it
+**Finding:** Grade G loans default at 57.43% — nearly **8x higher** than Grade A (6.72%).
+**Action:** Apply stricter approval thresholds for Grade E/F/G applicants (require collateral, co-signers, or smaller loan amounts instead of outright rejection), and ensure interest rates on these grades are repriced to match their real default risk.
+**Impact:** Reduces exposure on the riskiest ~22% of the portfolio without cutting off revenue entirely — collateral/co-signer terms retain the customer relationship while limiting downside.
 
-## ✅ Recommendations — Risk Mitigation Strategy
+### 2. DTI is a reliable early-warning signal — cap it, don't just monitor it
+**Finding:** Defaulted/charged-off loans carry an average DTI of ~19.9%, vs. 16.54% for fully paid loans — a 3.3-point gap.
+**Action:** Flag applicants with DTI above 25–30% for manual underwriting review, and introduce a hard DTI cap (e.g., 35%) for approval.
+**Impact:** Catches a meaningful share of future defaults *before* the loan is issued, rather than discovering the risk after the fact.
 
-Based on the analysis, here are actionable measures the bank can take to reduce default losses:
+### 3. Employment length is a weak signal — stop weighting it in underwriting
+**Finding:** Default rate barely moves across employment tenure (21.45%–23.49%, a 2-point spread) — far flatter than grade or DTI.
+**Action:** De-prioritize employment length as an underwriting factor and reallocate that review effort to credit-score and DTI checks.
+**Impact:** Frees up underwriting time/resources for the two factors that actually predict risk, without sacrificing approval accuracy.
 
-### 1. Tighten Underwriting for High-Risk Segments
-- Apply stricter approval thresholds for **Grade E, F, G** applicants and those with **credit scores below 650**.
-- Consider requiring **collateral, co-signers, or smaller loan amounts** for these segments instead of outright rejection — balances risk reduction with revenue retention.
+### 4. Nearly 1 in 4 loans go bad — but the risk is concentrated, not random
+**Finding:** 22.42% of all loans result in losses (13.52% Charged Off, 8.89% Default), concentrated in low-grade, high-DTI borrowers — while home ownership type shows almost no risk differentiation (~22% across Mortgage, Rent, Own).
+**Action:** Don't use home ownership as a risk filter; instead, focus monitoring resources on the Medium Risk tier specifically, since it's the largest single segment (54.5% of the portfolio, 23.51% default rate) — a small shift here has outsized portfolio impact.
+**Impact:** Avoids wasted effort on a non-predictive factor (home ownership) while protecting the segment that matters most by sheer size.
 
-### 2. Use DTI as a Hard Cutoff, Not Just a Factor
-- Flag applicants with **DTI above 25–30%** for manual underwriting review.
-- Introduce a **maximum DTI cap** (e.g., 35%) for loan approval, since defaulted loans average ~20% DTI vs. 16.5% for healthy loans.
+### 5. Charged-off loans are losses already locked in — intervene earlier
+**Finding:** "Charged Off" loans (13.52%) represent fully written-off losses, while "Default" status (8.89%) is often still recoverable.
+**Action:** Invest in earlier intervention — restructuring or settlement offers — at the Default stage, before the loan progresses to Charged Off.
+**Impact:** Recovers partial value on loans that would otherwise become a 100% loss, directly improving portfolio recovery rate.
 
-### 3. Re-price Risk Through Interest Rates
-- Since Grade G/F applicants default at 45–57%, ensure interest rates charged adequately compensate for that risk (risk-based pricing) — protects overall portfolio profitability even if some loans default.
-
-### 4. Reduce Reliance on Weak Predictors
-- De-prioritize **employment length** as an underwriting factor given its near-flat default correlation (21–23% range) — freeing up underwriting focus for stronger signals like credit score and DTI.
-
-### 5. Proactive Monitoring for Medium Risk Tier
-- Medium Risk applicants form **54.5% of the portfolio** — the largest segment. Implement **early-warning monitoring** (e.g., payment delay alerts) for this group specifically, since a small shift in their behavior has outsized portfolio impact.
-
-### 6. Targeted Collections Strategy
-- Since "Charged Off" loans (13.52%) represent fully written-off losses, invest in **earlier intervention before charge-off** — restructuring or settlement offers at the "Default" stage (8.89%) could recover value before it's lost entirely.
-
-### 7. Re-evaluate the "Other" Home Ownership Segment
-- This group defaults highest (24.82%) but is a small sample (1,946 loans) — monitor for now rather than over-correcting policy based on limited data.
+### 6. The "Other" home ownership segment is a flagged outlier, not yet a policy trigger
+**Finding:** Applicants under "Other" home ownership default at 24.82% — the highest of any category — but represent a small sample (1,946 loans).
+**Action:** Monitor this segment for now rather than building new underwriting policy around it.
+**Impact:** Avoids overcorrecting on a small, potentially noisy sample while keeping it on the radar if volume grows.
 
 ---
 
