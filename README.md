@@ -169,7 +169,7 @@ Default rate by loan grade, home ownership, credit-score-based risk tier, and lo
 **Key Insight:** Grade G loans default at 57.43% — nearly 8x higher than Grade A (6.72%), confirming loan grade as the strongest default predictor. High Risk applicants (credit score <650) default at 45.31%, 4.4x higher than Low Risk applicants (10.35%).
 
 ### Page 3 — Applicant Profile
-![Applicant Profile](Applicant_20%profile.png)
+![Applicant Profile](Applicant_profile.png)
 
 Default rate by employment length and average DTI by loan status.
 
